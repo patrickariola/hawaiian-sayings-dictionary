@@ -4,7 +4,6 @@ from lookup.database import SayingDatabase, Saying
 db = SayingDatabase()
 
 # ------------------------ REQUIRED TEST CASES ------------------------
-
 # Insert 3 sayings
 s1 = Saying(
     "ʻAʻohe hana nui ke alu ʻia",
@@ -55,9 +54,10 @@ for saying in db.mehua("hana"):
 print("\nWithWord search for 'land':")
 for saying in db.withword("land"):
     print(f"- {saying}")
-
+    
 # ------------------------ EXTRA TEST CASES ------------------------
 
+# ---------- Extra Test #1 ----------
 print("\n--- Extra Test 1: Insert 2 more sayings (standard case of 5 total) ---")
 s4 = Saying(
     "He pūkoʻa kani ʻāina",
@@ -77,6 +77,7 @@ db.insert_saying(s4)
 db.insert_saying(s5)
 print("- Inserted sayings 4 and 5")
 
+# ---------- Extra Test #2 ----------
 print("\n--- Extra Test 2: Duplicate insert (should overwrite old) ---")
 duplicate = Saying(
     "He aliʻi ka ʻāina",
@@ -89,6 +90,7 @@ print("- Duplicate inserted. Here's the updated version:")
 print(f"- {db.member('He aliʻi ka ʻāina')}")
 print(f"- {db.tree.search_saying('He aliʻi ka ʻāina').saying}")  # show updated saying
 
+# ---------- Extra Test #3 ----------
 print("\n--- Extra Test 3: Unicode validity test ---")
 unicode_saying = Saying(
     "Aloha ʻoe",
@@ -108,12 +110,14 @@ print("- Inserted versions with and without ʻokina/macrons:")
 print(f"- {db.member('Aloha ʻoe')}")
 print(f"- {db.member('Aloha oe')}")
 
+# ---------- Extra Test #4 ----------
 print("\n--- Extra Test 4: Empty tree test ---")
 empty_db = SayingDatabase()
 print("- First (empty):", empty_db.first())
 print("- Member (ʻAʻohe hana nui ke alu ʻia):", empty_db.member("ʻAʻohe hana nui ke alu ʻia"))
 print("- MeHua (hana):", empty_db.mehua("hana"))
 
+# ---------- Extra Test #5 ----------
 print("\n--- Extra Test 5: Insert 20 sayings (scalability test) ---")
 for i in range(1, 21):
     saying = Saying(
