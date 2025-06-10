@@ -40,6 +40,7 @@ class AVLTree:
         y.left = temp_subtree
         self.update_height(y)
         self.update_height(x)
+        return x
 
     def rotate_left(self, x):
         if not x or not x.right:
@@ -49,7 +50,7 @@ class AVLTree:
         y.left = x
         x.right = temp_subtree
         self.update_height(x)
-        self.udpate_height(y)
+        self.update_height(y)
         return y
     
     def insert(self, root, key, saying):
@@ -72,7 +73,7 @@ class AVLTree:
 
         # Left heavy
         if balance > 1:
-            if self._normalize_key(key) < self._normalize_key(root.left.key):
+            if self.balance_factor(root.left) >= 0:
                 return self.rotate_right(root)
             else:
                 root.left = self.rotate_left(root.left)
@@ -80,10 +81,90 @@ class AVLTree:
             
         # Right heavy
         if balance < -1:
-            if self._normalize_key(key) > self._normalize_key(root.right.key):
+            if self.balance_factor(root.right) <= 0:
                 return self.rotate_left(root)
             else:
                 root.right = self.rotate_right(root.right)
                 return self.rotate_left(root)
         return root
     
+
+# -----------------------------      SEARCH METHODS     -------------------------------
+
+    def search_saying(self, key):
+        normalized_key = self._normalize_key(key)
+        return self._search(self.root, normalized_key)
+    
+    def _search(self, node, key):
+        if not node:
+            return None
+        if self._normalize_key(node.key) == key:
+            return node
+        elif key < self._normalize_key(node.key):
+            return self._search(node.left, key)
+        else:
+            return self._search(node.right, key)
+
+# -----------------------------      ORDERED SET OPERATIONS     -------------------------------
+
+    # Insert
+    def insert_saying(self, saying):
+        self.root = self.insert(self.root, saying.hawaiian, saying)
+
+    # Member
+    def member(self, key):
+        return self.search_saying(key) is not None
+    
+    # First
+    def first(self):
+        if not self.root:
+            return None
+        current = self.root
+        while current.left:
+            current = current.left
+        return current.saying
+
+    # Last
+    def last(self):
+        if not self.root:
+            return None
+        current = self.root
+        while current.right:
+            current = current.right
+        return current.saying
+        
+    # Predecessor
+    def predecessor(self, key):
+        def _predecessor(node, key, pred=None):
+            if not node:
+                return pred
+            if self._normalize_key(node.key) == self._normalize_key(key):
+                if node.left:
+                    current = node.left
+                    while current.right:
+                        current = current.right
+                    return current.saying
+                return pred
+            elif self._normalize_key(key) < self._normalize_key(node.key):
+                return _predecessor(node.left, key, pred)
+            else:
+                return _predecessor(node.right, key, node.saying)
+        return _predecessor(self.root, key)
+
+    # Successor
+    def successor(self, key):
+        def _successor(node, key, succ=None):
+            if not node:
+                return succ
+            if self._normalize_key(node.key) == self._normalize_key(key):
+                if node.right:
+                    current = node.right
+                    while current.left:
+                        current = current.left
+                    return current.saying
+                return succ
+            elif self._normalize_key(key) < self._normalize_key(node.key):
+                return _successor(node.left, key, node.saying)
+            else:
+                return _successor(node.right, key, succ)
+        return _successor(self.root, key)
