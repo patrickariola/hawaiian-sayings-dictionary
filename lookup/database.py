@@ -1,4 +1,5 @@
 from collections import defaultdict
+from tree.avltree import AVLTree  # Import your partner's tree
 
 class Saying:
     def __init__(self, hawaiian, english, explanation_haw, explanation_eng):
@@ -12,12 +13,12 @@ class Saying:
 
 class SayingDatabase:
     def __init__(self):
-        self.sayings = []
+        self.tree = AVLTree()
         self.hawaiian_index = defaultdict(set)
         self.english_index = defaultdict(set)
 
     def insert_saying(self, saying):
-        self.sayings.append(saying)
+        self.tree.insert_saying(saying)
 
         for word in saying.hawaiian.lower().split():
             self.hawaiian_index[word].add(saying)
@@ -30,3 +31,18 @@ class SayingDatabase:
 
     def withword(self, word):
         return list(self.english_index.get(word.lower(), []))
+
+    def member(self, hawaiian_key):
+        return self.tree.member(hawaiian_key)
+
+    def first(self):
+        return self.tree.first()
+
+    def last(self):
+        return self.tree.last()
+
+    def predecessor(self, hawaiian_key):
+        return self.tree.predecessor(hawaiian_key)
+
+    def successor(self, hawaiian_key):
+        return self.tree.successor(hawaiian_key)
