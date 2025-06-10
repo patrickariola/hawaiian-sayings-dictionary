@@ -1,6 +1,6 @@
 from lookup.database import SayingDatabase, Saying
 
-# 20 Sayings
+# 20 Sayings, alphabetical order for convenience
 s1 = Saying(
     "ʻAia akula nō i Ki'ilau.",
     "He is gone to Ki'ilau.",
@@ -144,8 +144,7 @@ s20 = Saying(
 # Test Functions
 def test_standard_case():
     db = SayingDatabase()
-    print("ʻŌlelo Noʻeau Database Test - [Your Name]")
-    print("\n--- Test 1: Standard Case of Inserting 5 Sayings ---")
+    print("\n--------------------------- Test 1: Standard Case (5 Sayings) ---------------------------")
     sayings = [s1, s4, s7, s10, s13]  # select s1, s4, s7, s10, s13
     for saying in sayings:
         db.insert_saying(saying)
@@ -169,8 +168,8 @@ def test_standard_case():
 
 def test_duplicate_case(): # updates existing key but with modified values
     db = SayingDatabase()
-    print("\n--- Test 2: Duplicates (Latest Only Shows Up) ---")
-    db.insert_saying(s1)
+    print("\n--------------------------- Test 2: Duplicates ---------------------------")
+    db.insert_saying(s1) # shows same key but different translation and 
     s1_modified = Saying(
         s1.hawaiian,
         "He has gone ahead and went to Ki'ilau (modified)",
@@ -187,12 +186,13 @@ def test_duplicate_case(): # updates existing key but with modified values
 
 def test_unicode_validity():
     db = SayingDatabase()
-    print("\n--- Test 3: Unicode Validity ---")
+    print("\n--------------------------- Test 3: Unicode Validity ---------------------------")
     db.insert_saying(s5) # as is, normal
     ascii_s5 = Saying("Haha po ele ka papa i o Kou", s5.english, s5.explanation_haw, s5.explanation_eng)
     db.insert_saying(ascii_s5)
+    print()
     db.member(s5.hawaiian)
-    db.member(ascii_s5.hawaiian)  # member check for ascii
+    db.member(ascii_s5.hawaiian)  # member check for ascii, have same explanations
     print("\nRetrieved unicode saying:")
     print(f"- {db.tree.search_saying(s5.hawaiian).saying}")
     print("\nRetrieved ascii saying:")
@@ -200,7 +200,7 @@ def test_unicode_validity():
 
 def test_empty_tree(): # all negatives
     db = SayingDatabase()
-    print("\n--- Test 4: Empty Tree ---")
+    print("\n--------------------------- Test 4: Empty Tree ---------------------------")
     db.member(s1.hawaiian)
     print("\nFirst Saying in Hawaiian order:")
     print(f"- {db.first()}")
@@ -210,16 +210,16 @@ def test_empty_tree(): # all negatives
     print(f"- {db.predecessor(s1.hawaiian)}")
     print("\nSuccessor of s15:")
     print(f"- {db.successor(s1.hawaiian)}")
-    print("\nMeHua search for 'wind':")
-    for saying in db.mehua("wind"):
+    print("\nMeHua search for 'makani':")   # exists in list but no inserts
+    for saying in db.mehua("makani"):
         print(f"- {saying}")
-    print("\nWithWord search for 'sleep':")
-    for saying in db.withword("sleep"):
+    print("\nWithWord search for 'mountain':")
+    for saying in db.withword("mountain"):
         print(f"- {saying}")
 
 def test_large_quantity():  # all 20 sayings
     db = SayingDatabase()
-    print("\n--- Test 5: Large Quantity Inserts (20 Sayings) ---")
+    print("\n--------------------------- Test 5: Large Quantity (20 Sayings) ---------------------------")
     for i in range(1, 21):
         db.insert_saying(globals()[f"s{i}"])
     print()
