@@ -1,15 +1,6 @@
 from collections import defaultdict
-from tree.avltree import AVLTree  # Import your partner's tree
-
-class Saying:
-    def __init__(self, hawaiian, english, explanation_haw, explanation_eng):
-        self.hawaiian = hawaiian
-        self.english = english
-        self.explanation_haw = explanation_haw
-        self.explanation_eng = explanation_eng
-
-    def __repr__(self):
-        return f"{self.hawaiian} → {self.english}"
+from tree.avltree import AVLTree
+from lookup.saying import Saying  # Correct: now ONLY imported
 
 class SayingDatabase:
     def __init__(self):

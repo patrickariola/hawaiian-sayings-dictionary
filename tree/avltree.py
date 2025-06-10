@@ -1,5 +1,5 @@
 import unicodedata
-from lookup.database import Saying
+from lookup.saying import Saying
 
 class AVLNode:
     def __init__(self, key, saying):
