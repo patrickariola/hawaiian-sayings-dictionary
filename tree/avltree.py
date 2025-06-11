@@ -133,6 +133,7 @@ class AVLTree:
 
 # -----------------------------      ORDERED SET OPERATIONS     -------------------------------
 
+    # Insert
     def insert_saying(self, saying):
         self.root = self.insert(self.root, saying.hawaiian, saying)
 
@@ -143,18 +144,21 @@ class AVLTree:
             print(f"- {result}")
         return result
     
+    # First
     def first(self):
         if not self.root:
             return None
         min_node = self._find_min_node(self.root)
         return min_node.saying if min_node else None
 
+    # Last
     def last(self):
         if not self.root:
             return None
         max_node = self._find_max_node(self.root)
         return max_node.saying if max_node else None
-        
+
+    # Predecessor  
     def predecessor(self, key):
         def _predecessor(node, key, pred=None):
             if not node:
@@ -174,7 +178,7 @@ class AVLTree:
         result = _predecessor(self.root, key)
         return result if result and self.member(key, silent=True) else None
 
-
+    # Successor
     def successor(self, key):
         def _successor(node, key, succ=None):
             if not node:
@@ -196,7 +200,6 @@ class AVLTree:
         return self.height(self.root)
     
     def debug_print_inorder(self):
-        """Debug method to print tree in order"""
         def _inorder(node):
             if node:
                 _inorder(node.left)

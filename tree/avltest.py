@@ -1,3 +1,5 @@
+# not updated, purely for testing purposes
+
 import unicodedata
 from lookup.database import Saying
 
