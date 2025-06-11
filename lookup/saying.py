@@ -1,3 +1,6 @@
+# Author: Arisa Nakai
+# Purpose: Defines 'Saying' class to display the Hawaiian sayings' translation and explanations
+
 class Saying:
     def __init__(self, hawaiian, english, explanation_haw, explanation_eng):
         self.hawaiian = hawaiian

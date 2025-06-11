@@ -1,3 +1,7 @@
+# Author: Arisa Nakai
+# Purpose: Defines 'SayingDatabase' class to store Hawaiian sayings using the AVLTree
+# with MeHua and WithWord functions for the word searches.
+
 from collections import defaultdict
 from tree.avltree import AVLTree
 from lookup.saying import Saying

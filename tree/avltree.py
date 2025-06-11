@@ -1,3 +1,6 @@
+# Author: Patrick Ariola
+# Purpose: Implements an AVL Tree data structure to exercise efficient ordered set operations.
+
 import unicodedata
 import re
 from lookup.saying import Saying

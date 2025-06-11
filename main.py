@@ -1,3 +1,6 @@
+# Author: Patrick Ariola & Arisa Nakai
+# Purpose: Test sets of Hawaiian sayings to demonstrate the database and required operations
+
 from lookup.database import SayingDatabase, Saying
 # To run the tests, uncomment one case function and comment out the others to run them
 

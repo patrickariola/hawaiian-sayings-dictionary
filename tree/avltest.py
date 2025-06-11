@@ -1,4 +1,5 @@
-# not updated, purely for testing purposes
+# Author: Patrick Ariola
+# Purpose: Not updated, purely for testing purposes
 
 import unicodedata
 from lookup.database import Saying
